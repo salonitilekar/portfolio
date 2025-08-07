@@ -1,0 +1,87 @@
+---
+import type { HeroProps } from "@types";
+type Props = HeroProps;
+
+const { name, specialty, summary, email } = Astro.props;
+---
+
+<section class="py-24 md:py-32" id="#hero">
+  <div class="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-12">
+    <!-- Photo on the left -->
+    <div class="flex-shrink-0">
+      <img
+        src="/saloni-photo.jpg"
+        alt="Saloni Tilekar"
+        class="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-4 border-white/20 shadow-lg"
+        style="border-color: var(--color-primary);"
+      />
+    </div>
+    
+    <!-- Name and specialty on the right -->
+    <div class="flex-1 text-center md:text-left">
+      <h1
+        class="mb-1.5 font-serif text-7xl font-bold tracking-tightest sm:text-8xl md:mb-0 md:text-9xl"
+        style="color: var(--color-text);"
+      >
+        {name}
+      </h1>
+      <p
+        class="mb-9 font-serif text-4xl leading-[46px] font-bold tracking-tighter sm:text-5xl md:text-6xl"
+        style="color: var(--color-primary);"
+      >
+        {specialty}
+      </p>
+    </div>
+  </div>
+  
+  <p class="mb-16 text-base font-normal md:text-lg mt-8" style="color: var(--color-neutral);">
+    {summary}
+  </p>
+
+  <a
+    id="glass-btn"
+    class="group relative inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-medium transition-all duration-500 hover:scale-105 active:scale-95 glass-btn-light"
+    href={`mailto:${email}`}
+  >
+    <span class="relative z-10">Get in Touch</span>
+    <div class="absolute inset-0 rounded-full bg-gradient-to-r from-white/40 via-white/10 to-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+    <div class="absolute inset-0 rounded-full pointer-events-none glass-btn-shine"></div>
+  </a>
+  <script>
+    function updateGlassBtnTheme() {
+      const btn = document.getElementById('glass-btn');
+      if (!btn) return;
+      const theme = document.documentElement.getAttribute('data-theme');
+      btn.classList.remove('glass-btn-light', 'glass-btn-dark');
+      btn.classList.add(theme === 'dark' ? 'glass-btn-dark' : 'glass-btn-light');
+    }
+    updateGlassBtnTheme();
+    window.addEventListener('storage', updateGlassBtnTheme);
+    window.addEventListener('DOMContentLoaded', updateGlassBtnTheme);
+    window.addEventListener('themechange', updateGlassBtnTheme);
+    // Also listen for theme toggle button
+    const observer = new MutationObserver(updateGlassBtnTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  </script>
+  <style>
+    .glass-btn-light {
+      background: rgba(255,255,255,0.6);
+      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08);
+      border: 1.5px solid rgba(0,0,0,0.08);
+      color: var(--color-text);
+    }
+    .glass-btn-dark {
+      background: rgba(30,30,30,0.7);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .glass-btn-light .glass-btn-shine {
+      background: linear-gradient(180deg,rgba(255,255,255,0.25) 0%,rgba(255,255,255,0.05) 60%,rgba(255,255,255,0) 100%);
+      mix-blend-mode: screen;
+    }
+    .glass-btn-dark .glass-btn-shine {
+      background: linear-gradient(180deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.04) 60%,rgba(255,255,255,0) 100%);
+      mix-blend-mode: screen;
+    }
+  </style>
+</section>

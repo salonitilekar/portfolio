@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-serif: "Gabarito Variable", ui-serif, serif;
+
+  /* Light theme - PURE WHITE background */
+  --color-primary-light: #0052CC;    /* unified brand blue */
+  --color-neutral-light: #666666;    /* secondary text & icons */
+  --color-bg-light:      #ffffff;    /* background canvas - PURE WHITE */
+  --color-text-light:    #333333;    /* primary text */
+  --navbar-glass-bg-light: rgba(255,255,255,0.7);
+  --navbar-text-light: #222;
+
+  /* Dark theme - RICH BLACK background */
+  --color-primary-dark:  #539BF5;    /* hue-matched accent */
+  --color-neutral-dark:  #A0A0A0;    /* secondary text & icons */
+  --color-bg-dark:       #0a0a0a;    /* background canvas - RICH BLACK */
+  --color-text-dark:     #E0E0E0;    /* primary text */
+  --navbar-glass-bg-dark: rgba(20,20,20,0.7);
+  --navbar-text-dark: #fff;
+
+  /* Default to light theme */
+  --color-primary: var(--color-primary-light);
+  --color-neutral: var(--color-neutral-light);
+  --color-bg: var(--color-bg-light);
+  --color-text: var(--color-text-light);
+  --navbar-glass-bg: var(--navbar-glass-bg-light);
+  --navbar-text: var(--navbar-text-light);
+
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.625rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.813rem;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 2.125rem;
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 2.375rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.688rem;
+  --text-5xl: 2.5rem;
+  --text-5xl--line-height: 3rem;
+  --text-6xl: 3rem;
+  --text-6xl--line-height: 3.625rem;
+  --text-7xl: 3.75rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 4.5rem;
+  --text-8xl--line-height: 4.875rem;
+  --text-9xl: 6rem;
+  --text-9xl--line-height: 6.625rem;
+
+  --tracking-tightest: -2px;
+  --tracking-tighter: -1px;
+  --tracking-tight: -0.25px;
+
+  --animate-slide-in: slide-in 600ms ease both;
+
+  @keyframes slide-in {
+    10% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Dark theme styles */
+[data-theme="dark"] {
+  --color-primary: var(--color-primary-dark);
+  --color-neutral: var(--color-neutral-dark);
+  --color-bg: var(--color-bg-dark);
+  --color-text: var(--color-text-dark);
+  --navbar-glass-bg: var(--navbar-glass-bg-dark);
+  --navbar-text: var(--navbar-text-dark);
+}

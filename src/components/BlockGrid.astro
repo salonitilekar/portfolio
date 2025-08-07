@@ -1,0 +1,131 @@
+---
+// Dynamic grid generation with organic randomness
+const blockSize = 16; // Base block size in pixels
+const viewportHeight = 1000; // Approximate viewport height for SSR
+const rowCount = Math.ceil(viewportHeight / blockSize);
+
+// Color palette: GitHub-inspired greens (no white/light gray)
+const colorPalette = [
+  '#9be9a8', // Light green
+  '#40c463', // Medium green
+  '#30a14e', // Dark green
+  '#216e39', // Very dark green
+  '#0d1117', // Dark gray (max contributions)
+];
+
+// Generate organic, variable-density rows
+const rows = Array.from({ length: rowCount }, () => {
+  // Randomly choose between 4-10 blocks per row
+  const blockCount = Math.floor(Math.random() * 7) + 4;
+  
+  return Array.from({ length: blockCount }, () => {
+    // Random color selection with weighted distribution
+    const colorIndex = Math.random();
+    let selectedColor;
+    
+    if (colorIndex < 0.3) {
+      selectedColor = colorPalette[0]; // 30% light green
+    } else if (colorIndex < 0.6) {
+      selectedColor = colorPalette[1]; // 30% medium green
+    } else if (colorIndex < 0.85) {
+      selectedColor = colorPalette[2]; // 25% dark green
+    } else if (colorIndex < 0.95) {
+      selectedColor = colorPalette[3]; // 10% very dark green
+    } else {
+      selectedColor = colorPalette[4]; // 5% dark gray
+    }
+    
+    // Opacity variation: 0.2-1.0
+    const opacity = 0.2 + Math.random() * 0.8;
+    
+    // Return null for transparent blocks (20% chance)
+    if (Math.random() < 0.2) {
+      return null;
+    }
+    
+    return {
+      color: selectedColor,
+      opacity: opacity
+    };
+  });
+});
+---
+
+<style>
+  .green-grid {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: var(--grid-width, 200px);
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: var(--block-size, 16px);
+    gap: 2px;
+    padding: 20px 10px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .grid-row {
+    display: flex;
+    gap: 2px;
+    justify-content: flex-end;
+  }
+  
+  .grid-block {
+    width: var(--block-size, 16px);
+    height: var(--block-size, 16px);
+    border-radius: 2px;
+    margin: 1px;
+    transition: opacity 0.3s ease;
+    background-clip: padding-box;
+  }
+  
+  .grid-block.blank {
+    background-color: transparent !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .green-grid {
+      width: 150px;
+      --block-size: 14px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .green-grid {
+      width: 120px;
+      --block-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .green-grid {
+      width: 80px;
+      --block-size: 10px;
+    }
+  }
+</style>
+
+<div class="green-grid">
+  {
+    rows.map((row, rowIndex) => (
+      <div class="grid-row">
+        {row.map((block, blockIndex) => (
+          block
+            ? <div
+                class="grid-block"
+                style={`background-color: ${block.color}; opacity: ${block.opacity};`}
+                title={`Contribution block ${rowIndex}-${blockIndex}`}
+              />
+            : <div
+                class="grid-block blank"
+                title={`Empty block ${rowIndex}-${blockIndex}`}
+              />
+        ))}
+      </div>
+    ))
+  }
+</div> 

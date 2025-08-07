@@ -1,0 +1,177 @@
+---
+import Menu from "@icons/Menu.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import type { HeaderProps } from "@types";
+
+type Props = HeaderProps;
+
+const { siteLogo, navLinks } = Astro.props;
+---
+
+<header
+  class="sticky top-0 z-50 w-full animate-slide-in border-b border-neutral/20 px-5 py-6"
+  style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); background-color: var(--navbar-glass-bg);"
+>
+  <div class="mx-auto max-w-5xl relative flex items-center">
+    <!-- Left: Home Icon -->
+    <a href="/" aria-label="Home link" class="absolute left-0">
+      <svg 
+        width="22" 
+        height="22" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        style="color: var(--navbar-text);"
+        class="transition-colors duration-200 hover:scale-110"
+      >
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+    </a>
+
+    <!-- Center: Navigation -->
+    <div class="flex items-center gap-6 mx-auto">
+      <ThemeToggle />
+      
+      <nav
+        class="hidden sm:block"
+        id="main-menu"
+      >
+        <ul class="flex gap-6">
+          {
+            navLinks.map((link) => (
+              <li class="relative">
+                <a
+                  class="nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:opacity-0 after:content-['•']"
+                  style="color: var(--navbar-text); --tw-after-text-opacity: 1; --tw-after-color: var(--color-primary);"
+                  href={link.href}
+                >
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Right: Social Icons (desktop only) -->
+    <div class="absolute right-0 flex items-center gap-4">
+      <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn" class="hidden sm:inline-block">
+        <!-- Font Awesome LinkedIn SVG -->
+        <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="22" height="22" style="color: var(--navbar-text);"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zm-46.44-340.7C24.09 107.3 0 83.2 0 53.6A53.6 53.6 0 0 1 53.6 0a53.6 53.6 0 0 1 53.6 53.6c0 29.6-24.09 53.7-53.36 53.7zM447.8 448h-92.4V302.4c0-34.7-12.4-58.4-43.3-58.4-23.6 0-37.6 15.8-43.7 31.1-2.3 5.6-2.8 13.4-2.8 21.2V448h-92.6s1.2-241.1 0-266.1h92.6v37.7c12.3-19 34.3-46.1 83.5-46.1 60.9 0 106.7 39.7 106.7 125.2V448z"></path></svg>
+      </a>
+      <a href="https://github.com" target="_blank" aria-label="GitHub" class="hidden sm:inline-block">
+        <!-- Font Awesome GitHub Octocat SVG -->
+        <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" class="svg-inline--fa fa-github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" style="color: var(--navbar-text);"><path fill="currentColor" d="M12 0C5.371 0 0 5.371 0 12c0 5.303 3.438 9.8 8.205 11.387.6.111.82-.261.82-.577 0-.285-.011-1.04-.017-2.04-3.338.726-4.042-1.611-4.042-1.611-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.304.762-1.604-2.665-.304-5.466-1.334-5.466-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.371.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .319.216.694.825.576C20.565 21.796 24 17.299 24 12c0-6.629-5.371-12-12-12z"/></svg>
+      </a>
+      <a href="https://twitter.com" target="_blank" aria-label="X" class="hidden sm:inline-block">
+        <!-- Official X (Twitter) SVG from X Brand Toolkit -->
+        <svg width="22" height="22" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--navbar-text);"><rect width="120" height="120" fill="none"/><path d="M93.5 26H110L76.5 62.5L115 114H83.5L59.5 83.5L32.5 114H16L52.5 74.5L15 26H47L68.5 54L93.5 26ZM87.5 106H97.5L41.5 34H31.5L87.5 106Z" fill="currentColor"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="hidden sm:inline-block">
+        <!-- Font Awesome YouTube SVG -->
+        <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" class="svg-inline--fa fa-youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="22" height="22" style="color: var(--navbar-text);"><path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.84-42.21-48.48-48.48C465.5 64 288 64 288 64s-177.5 0-213.175 11.603c-23.64 6.27-42.199 24.83-48.48 48.48C16 159.759 16 256 16 256s0 96.241 10.345 131.917c6.281 23.65 24.84 42.21 48.48 48.48C110.5 448 288 448 288 448s177.5 0 213.175-11.603c23.64-6.27 42.199-24.83 48.48-48.48C560 352.241 560 256 560 256s0-96.241-10.345-131.917zM232 336V176l142.745 80L232 336z"/></svg>
+      </a>
+    </div>
+
+    <!-- Right: Mobile Menu Button -->
+    <button
+      type="button"
+      id="menu-button"
+      class="absolute right-0 px-1.5 transition-colors sm:hidden"
+      style="color: var(--navbar-text);"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <Menu />
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav
+    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 backdrop-blur-sm px-4 py-5 sm:hidden"
+    id="mobile-menu"
+    style="background-color: var(--color-bg); color: var(--color-neutral);"
+  >
+    <ul class="gap-2">
+      {
+        navLinks.map((link) => (
+          <li class="relative">
+            <a
+              class="nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:opacity-0 after:content-['•']"
+              style="color: var(--color-neutral); --tw-after-text-opacity: 1; --tw-after-color: var(--color-primary);"
+              href={link.href}
+            >
+              {link.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  // Toggle mobile menu
+  const button = document.querySelector("#menu-button");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const navItems = document.querySelectorAll("#main-menu > ul > li > a, #mobile-menu > ul > li > a");
+
+  const toggleMenu = () => {
+    mobileMenu?.classList.toggle("hidden");
+    const isHidden = mobileMenu?.classList.contains("hidden");
+    button?.setAttribute("aria-expanded", `${!isHidden}`);
+  };
+
+  button?.addEventListener("click", toggleMenu);
+  navItems.forEach((item) => {
+    item?.addEventListener("click", toggleMenu);
+  });
+
+  // Update navigation based on scroll position with Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navItems.forEach((item) => {
+            const navItem = item as HTMLElement;
+            if (item.getAttribute("href") === `#${entry.target.id}`) {
+              navItem.style.color = 'var(--color-text)';
+              navItem.style.setProperty('--tw-after-opacity', '1');
+            } else {
+              navItem.style.color = 'var(--color-neutral)';
+              navItem.style.setProperty('--tw-after-opacity', '0');
+            }
+          });
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  document.querySelectorAll("section").forEach((section) => {
+    observer.observe(section);
+  });
+
+  // Cleanup observer
+  document.onvisibilitychange = () => {
+    if (document.visibilityState === "hidden") {
+      observer.disconnect();
+    } else {
+      document.querySelectorAll("section").forEach((section) => {
+        observer.observe(section);
+      });
+    }
+  };
+</script>
+
+<style>
+  header {
+    animation-timeline: scroll();
+    animation-range: 0 650px;
+  }
+</style>
