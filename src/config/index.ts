@@ -8,6 +8,7 @@ export const SITE_CONFIG: SiteConfig = {
   lang: "en",
   siteLogo: "/alejandro-small.jpg",
   navLinks: [
+    { text: "Resume", href: "https://drive.google.com/file/d/YOUR_RESUME_ID/view", target: "_blank" },
     { text: "Experience", href: "#experience" },
     { text: "Projects", href: "#projects" },
     { text: "About", href: "#about" },
