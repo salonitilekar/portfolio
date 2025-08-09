@@ -60,13 +60,63 @@
   // Initialize theme
   updateTheme();
   
-  // Theme toggle functionality
-  themeToggle?.addEventListener('click', () => {
+  // Theme toggle functionality with ripple effect
+  themeToggle?.addEventListener('click', (event) => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateTheme();
+    // Get button position for ripple effect
+    const rect = themeToggle.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Create ripple element
+    const ripple = document.createElement('div');
+    ripple.className = 'theme-ripple';
+    ripple.style.left = centerX + 'px';
+    ripple.style.top = centerY + 'px';
+    ripple.style.setProperty('--ripple-color', newTheme === 'dark' ? '#0a0a0a' : '#ffffff');
+    ripple.style.border = '2px solid red'; // Debug border
+    document.body.appendChild(ripple);
+    
+    console.log('Ripple created at:', centerX, centerY); // Debug log
+    
+    // Start the ripple animation
+    setTimeout(() => {
+      ripple.classList.add('expand');
+    }, 10);
+    
+    // Change theme after a small delay to sync with animation
+    setTimeout(() => {
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateTheme();
+    }, 100);
+    
+    // Remove ripple element after animation
+    setTimeout(() => {
+      ripple.remove();
+    }, 2000);
   });
-</script> 
+</script>
+
+<style>
+  .theme-ripple {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ripple-color);
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+    pointer-events: none;
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+    mix-blend-mode: normal;
+  }
+  
+  .theme-ripple.expand {
+    width: 300vw;
+    height: 300vh;
+    transform: translate(-50%, -50%) scale(1);
+  }
+</style> 

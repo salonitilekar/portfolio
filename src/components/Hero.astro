@@ -6,9 +6,9 @@ const { name, specialty, summary, email } = Astro.props;
 ---
 
 <section class="py-24 md:py-32" id="#hero">
-  <div class="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-12">
-    <!-- Photo on the left -->
-    <div class="flex-shrink-0 relative">
+  <!-- Photo positioned absolutely on the left -->
+  <div class="absolute left-32 top-1/3 transform -translate-y-1/2 z-10 hidden lg:block">
+    <div class="relative">
       <img
         src="/saloni-photo.jpg"
         alt="Saloni Tilekar"
@@ -25,14 +25,17 @@ const { name, specialty, summary, email } = Astro.props;
         </div>
       </div>
     </div>
-    
+  </div>
+  
+  <div class="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-12">
     <!-- Name and specialty on the right -->
     <div class="flex-1 text-center md:text-left">
       <h1
-        class="mb-1.5 font-serif text-7xl font-bold tracking-tightest sm:text-8xl md:mb-0 md:text-9xl"
+        class="mb-1.5 font-serif text-7xl font-bold tracking-tightest sm:text-8xl md:mb-0 md:text-9xl typewriter-text"
         style="color: var(--color-text);"
+        data-text="Saloni Tilekar"
       >
-        {name}
+        <span class="typed-text"></span><span class="cursor-block"></span>
       </h1>
       <p
         class="mb-9 font-serif text-4xl leading-[46px] font-bold tracking-tighter sm:text-5xl md:text-6xl"
@@ -40,6 +43,24 @@ const { name, specialty, summary, email } = Astro.props;
       >
         {specialty}
       </p>
+      
+      <!-- Location -->
+      <div class="flex items-center justify-center md:justify-start gap-2 mb-8">
+        <svg 
+          class="w-4 h-4" 
+          fill="currentColor" 
+          viewBox="0 0 20 20" 
+          style="color: var(--color-neutral);"
+        >
+          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+        </svg>
+        <span 
+          class="text-sm font-medium"
+          style="color: var(--color-neutral);"
+        >
+          San Francisco
+        </span>
+      </div>
     </div>
   </div>
   
@@ -71,11 +92,42 @@ const { name, specialty, summary, email } = Astro.props;
     // Also listen for theme toggle button
     const observer = new MutationObserver(updateGlassBtnTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    
+    // Typewriter effect
+    function typeWriter() {
+      const textElement = document.querySelector('.typed-text') as HTMLElement;
+      const text = "saloni tilekar";
+      const speed = 150; // ms per character
+      let i = 0;
+      
+      function typeChar() {
+        if (i < text.length && textElement) {
+          textElement.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeChar, speed);
+        } else {
+          // Stop at the last character, don't move to next line
+          // Clear text and restart after a pause
+          setTimeout(() => {
+            if (textElement) {
+              textElement.textContent = '';
+              i = 0;
+              typeChar();
+            }
+          }, 2000); // 2 second pause before restarting
+        }
+      }
+      
+      typeChar();
+    }
+    
+    // Start typewriter effect when page loads
+    document.addEventListener('DOMContentLoaded', typeWriter);
   </script>
   <style>
     .glass-btn-light {
       background: rgba(255,255,255,0.6);
-      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08);
+      box-shadow: 0 8px 48px 0 rgba(0,0,0,0.15), 0 4px 16px 0 rgba(0,0,0,0.1);
       border: 1.5px solid rgba(0,0,0,0.08);
       color: var(--color-text);
     }
@@ -160,6 +212,38 @@ const { name, specialty, summary, email } = Astro.props;
         padding: 6px 10px;
         font-size: 11px;
       }
+    }
+    
+    /* Typewriter Animation Styles */
+    .typewriter-text {
+      font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+      color: #33FF33 !important; /* Classic DOS green */
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    
+    .cursor-block {
+      display: inline-block;
+      width: 0.6em;
+      height: 0.9em;
+      background-color: #33FF33 !important;
+      animation: blink 1s step-start infinite;
+      vertical-align: baseline;
+      margin-left: 2px;
+      position: relative;
+      top: 0;
+    }
+    
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    
+    .typed-text {
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
     }
   </style>
 </section>
