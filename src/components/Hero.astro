@@ -219,7 +219,7 @@ const { name, specialty, summary, email } = Astro.props;
       font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
       font-weight: normal;
       letter-spacing: 0.5px;
-      color: #33FF33 !important; /* Classic DOS green */
+      color: var(--color-text) !important;
       white-space: nowrap;
       overflow: hidden;
     }
@@ -228,7 +228,7 @@ const { name, specialty, summary, email } = Astro.props;
       display: inline-block;
       width: 0.6em;
       height: 0.9em;
-      background-color: #33FF33 !important;
+      background-color: var(--color-text) !important;
       animation: blink 1s step-start infinite;
       vertical-align: baseline;
       margin-left: 2px;

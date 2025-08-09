@@ -80,3 +80,12 @@
   --navbar-glass-bg: var(--navbar-glass-bg-dark);
   --navbar-text: var(--navbar-text-dark);
 }
+
+/* Typewriter text theme overrides */
+[data-theme="dark"] .typewriter-text {
+  color: #33FF33 !important; /* Classic DOS green for dark theme */
+}
+
+[data-theme="dark"] .cursor-block {
+  background-color: #33FF33 !important; /* Classic DOS green for dark theme */
+}
