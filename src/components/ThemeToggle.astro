@@ -76,11 +76,8 @@
     ripple.style.left = centerX + 'px';
     ripple.style.top = centerY + 'px';
     ripple.style.setProperty('--ripple-color', newTheme === 'dark' ? '#0a0a0a' : '#ffffff');
-    ripple.style.border = '2px solid red'; // Debug border
     document.body.appendChild(ripple);
-    
-    console.log('Ripple created at:', centerX, centerY); // Debug log
-    
+
     // Start the ripple animation
     setTimeout(() => {
       ripple.classList.add('expand');

@@ -17,7 +17,7 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = SITE_CONFIG;
 
-const ogImgUrl = canonicalURL + socialImage;
+const ogImgUrl = new URL(socialImage, canonicalURL).href;
 ---
 
 <!doctype html>
@@ -42,10 +42,10 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImgUrl} />
 
-    <!-- Geist Font from Google Fonts -->
+    <!-- Fonts: Be Vietnam Pro (sans) + Gabarito (display/serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&family=Gabarito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <script>
       // Theme switching functionality

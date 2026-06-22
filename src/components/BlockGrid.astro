@@ -109,21 +109,17 @@ const rows = Array.from({ length: rowCount }, () => {
   }
 </style>
 
-<div class="green-grid">
+<div class="green-grid" aria-hidden="true">
   {
-    rows.map((row, rowIndex) => (
+    rows.map((row) => (
       <div class="grid-row">
-        {row.map((block, blockIndex) => (
+        {row.map((block) => (
           block
             ? <div
                 class="grid-block"
                 style={`background-color: ${block.color}; opacity: ${block.opacity};`}
-                title={`Contribution block ${rowIndex}-${blockIndex}`}
               />
-            : <div
-                class="grid-block blank"
-                title={`Empty block ${rowIndex}-${blockIndex}`}
-              />
+            : <div class="grid-block blank" />
         ))}
       </div>
     ))

@@ -5,7 +5,7 @@ type Props = HeroProps;
 const { name, specialty, summary, email } = Astro.props;
 ---
 
-<section class="py-24 md:py-32" id="#hero">
+<section class="py-24 md:py-32" id="hero">
   <!-- Photo positioned absolutely on the left -->
   <div class="absolute left-32 top-1/3 transform -translate-y-1/2 z-10 hidden lg:block">
     <div class="relative">
@@ -33,7 +33,7 @@ const { name, specialty, summary, email } = Astro.props;
       <h1
         class="mb-1.5 font-serif text-7xl font-bold tracking-tightest sm:text-8xl md:mb-0 md:text-9xl typewriter-text"
         style="color: var(--color-text);"
-        data-text="Saloni Tilekar"
+        data-text={name}
       >
         <span class="typed-text"></span><span class="cursor-block"></span>
       </h1>
@@ -96,7 +96,8 @@ const { name, specialty, summary, email } = Astro.props;
     // Typewriter effect
     function typeWriter() {
       const textElement = document.querySelector('.typed-text') as HTMLElement;
-      const text = "saloni tilekar";
+      const heading = document.querySelector('.typewriter-text') as HTMLElement;
+      const text = heading?.dataset.text ?? "";
       const speed = 150; // ms per character
       let i = 0;
       

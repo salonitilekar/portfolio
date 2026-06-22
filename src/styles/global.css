@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
-  --font-serif: "Gabarito Variable", ui-serif, serif;
+  --font-serif: "Gabarito", ui-serif, serif;
 
   /* Light theme - PURE WHITE background */
   --color-primary-light: #0052CC;    /* unified brand blue */
